@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+import subprocess
+import glob
+import os
+import json
+import datetime
+
+def sizeof_fmt(num, suffix='B'):
+    for unit in ['','K','M','G','T','P','E','Z']:
+        if abs(num) < 1024.0:
+            return "%3.1f%s%s" % (num, unit, suffix)
+        num /= 1024.0
+    return "%.1f%s%s" % (num, 'Y', suffix)
+
+subprocess.check_call(["make", "clean"])
+subprocess.check_call(["make", "publish-windows"])
+zip_filename = glob.glob("build/publish-windows/legend-of-swarkland-*.zip")[0]
+zip_name = os.path.split(zip_filename)[-1]
+zip_size = sizeof_fmt(os.path.getsize(zip_filename))
+zip_date = datetime.datetime.today()
+subprocess.check_call(["s3cmd", "put", "-P", zip_filename, "s3://superjoe/temp/"])
+public_url = "http://superjoe.s3.amazonaws.com/temp/" + zip_name
+json_str = json.dumps({
+        "public_url": public_url,
+        "zip_name": zip_name,
+        "zip_size": zip_size,
+        "zip_date": zip_date,
+})
+this_directory = os.path.dirname(os.path.realpath(__file__))
+json_out_file = os.path.join(this_directory, "context.json")
+with f as open(json_out_file):
+    f.write(json_str)
+render_and_upload_bin = os.path.join(this_directory, "render_and_upload")
+subprocess.check_call([render_and_upload_bin])

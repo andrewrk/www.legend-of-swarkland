@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+import subprocess
+import json
+import os
+
+this_directory = os.path.dirname(os.path.realpath(__file__))
+context_json = os.path.join(this_directory, "context.json")
+index_html = os.path.join(this_directory, "index.html")
+out_html = os.path.join(this_directory, "out.html")
+json_str = open(context_json).read()
+context = json.loads(json_str)
+template = open(index_html).read()
+rendered = template % context
+with open(out_html) as f:
+    f.write(rendered)
+subprocess.check_call(["s3cmd", "put", "-P", out_html, "s3://superjoe/temp/legend-of-swarkland.html"])
+public_url = "http://superjoe.s3.amazonaws.com/temp/legend-of-swarkland.html"
+print(public_url)
