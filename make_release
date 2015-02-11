@@ -20,11 +20,18 @@ zip_size = sizeof_fmt(os.path.getsize(zip_filename))
 zip_date = datetime.datetime.today().strftime("%Y-%m-%d %H:%M")
 subprocess.check_call(["s3cmd", "put", "-P", zip_filename, "s3://superjoe/temp/"])
 public_url = "http://superjoe.s3.amazonaws.com/temp/" + zip_name
+
+latest_sha1_bytes = subprocess.check_output(["git", "rev-parse", "--short", "--verify", "HEAD"])
+latest_sha1 = str(latest_sha1_bytes, 'utf-8').strip()
+source_tgz_url = "https://github.com/thejoshwolfe/legend-of-swarkland/archive/%s.tar.gz" % latest_sha1
+
 json_str = json.dumps({
         "public_url": public_url,
         "zip_name": zip_name,
         "zip_size": zip_size,
         "zip_date": zip_date,
+        "source_tgz_url": source_tgz_url,
+        "latest_sha1": latest_sha1,
 })
 this_directory = os.path.dirname(os.path.realpath(__file__))
 json_out_file = os.path.join(this_directory, "context.json")
