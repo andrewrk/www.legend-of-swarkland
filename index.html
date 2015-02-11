@@ -3,29 +3,72 @@
   <head>
     <meta charset="utf-8">
     <title>Legend of Swarkland</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300|Roboto+Slab' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+        * {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Roboto Slab', serif;
+            margin: 20px 0;
+        }
+        p {
+            margin: 10px 0;
+        }
+        body {
+            background: url('http://i.imgur.com/7rhmhVG.png'),
+                        url('http://i.imgur.com/meoFgqX.png'),
+                        url('http://i.imgur.com/gUOdIY3.png'),
+                        url('http://i.imgur.com/BJGbJ0z.png'),
+                        url('http://i.imgur.com/v1ATvx4.png'),
+                        url('http://i.imgur.com/t06M4ZH.png')
+        }
+        img {
+            max-width: 100%;
+        }
+        .container {
+            background: white;
+            box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+            margin: 0 auto;
+            padding: 20px;
+            width: 80%;
+        }
+        .big-title {
+            font-size: 3em;
+            margin-top: 0;
+        }
+    </style>
   </head>
   <body>
-    <h1>Legend of Swarkland</h1>
-    <p>
-    Basic turn-based, hack-n-slash survival game.
-    </p>
-    <p>
-        <a href="https://github.com/thejoshwolfe/legend-of-swarkland">Source Code on GitHub</a>
-    </p>
-    <h2>Latest Windows Release</h2>
-    <p>
-        <a href="%(public_url)s">%(zip_name)s</a> (%(zip_size)s) - Released on %(zip_date)s
-    </p>
-    <h2>Screenshots</h2>
-    <a href="http://s3.amazonaws.com/superjoe/temp/legend-of-swarkland-screenshot-1.png">
-      <img src="http://s3.amazonaws.com/superjoe/temp/legend-of-swarkland-screenshot-1.png" alt="screenshot">
-    </a>
-    <h2>Website Source Code</h2>
-    <p>
-    You can improve this website by making a pull request.
-    </p>
-    <p>
-    <a href="https://github.com/andrewrk/www.legend-of-swarkland">Source Code on GitHub</a>
-    </p>
+    <a href="https://github.com/thejoshwolfe/legend-of-swarkland"><img style="position: absolute; top: 0; right: calc(0px + 10%); border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+    <div class="container">
+        <h1 class="big-title">Legend of Swarkland</h1>
+        <p>
+        Basic turn-based, hack-n-slash survival game.
+        </p>
+        <p>
+            <a href="https://github.com/thejoshwolfe/legend-of-swarkland">Source Code on GitHub</a>
+        </p>
+        <h2>Latest Windows Release</h2>
+        <p>
+            <a href="%(public_url)s">%(zip_name)s</a> (%(zip_size)s) - Released on %(zip_date)s
+        </p>
+        <h2>Linux Users</h2>
+        <p>There are up-to-date directions for building from source in the <a href="https://github.com/thejoshwolfe/legend-of-swarkland/blob/master/README.md#ubuntu">README</a>.
+        <h2>Screenshots</h2>
+        <a href="http://s3.amazonaws.com/superjoe/temp/legend-of-swarkland-screenshot-1.png">
+          <img src="http://s3.amazonaws.com/superjoe/temp/legend-of-swarkland-screenshot-1.png" alt="screenshot">
+        </a>
+        <h2>Website Source Code</h2>
+        <p>
+        You can improve this website by making a pull request.
+        </p>
+        <p>
+        <a href="https://github.com/andrewrk/www.legend-of-swarkland">Source Code on GitHub</a>
+        </p>
+    </div>
   </body>
 </html>
