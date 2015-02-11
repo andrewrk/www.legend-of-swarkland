@@ -17,7 +17,7 @@ subprocess.check_call(["make", "publish-windows"])
 zip_filename = glob.glob("build/publish-windows/legend-of-swarkland-*.zip")[0]
 zip_name = os.path.split(zip_filename)[-1]
 zip_size = sizeof_fmt(os.path.getsize(zip_filename))
-zip_date = datetime.datetime.today()
+zip_date = datetime.datetime.today().strftime("%Y-%m-%d %H:%M")
 subprocess.check_call(["s3cmd", "put", "-P", zip_filename, "s3://superjoe/temp/"])
 public_url = "http://superjoe.s3.amazonaws.com/temp/" + zip_name
 json_str = json.dumps({
@@ -28,7 +28,7 @@ json_str = json.dumps({
 })
 this_directory = os.path.dirname(os.path.realpath(__file__))
 json_out_file = os.path.join(this_directory, "context.json")
-with f as open(json_out_file):
+with open(json_out_file, 'w') as f:
     f.write(json_str)
 render_and_upload_bin = os.path.join(this_directory, "render_and_upload")
 subprocess.check_call([render_and_upload_bin])

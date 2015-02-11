@@ -11,8 +11,6 @@ json_str = open(context_json).read()
 context = json.loads(json_str)
 template = open(index_html).read()
 rendered = template % context
-with open(out_html) as f:
+with open(out_html, 'w') as f:
     f.write(rendered)
 subprocess.check_call(["s3cmd", "put", "-P", out_html, "s3://superjoe/temp/legend-of-swarkland.html"])
-public_url = "http://superjoe.s3.amazonaws.com/temp/legend-of-swarkland.html"
-print(public_url)
