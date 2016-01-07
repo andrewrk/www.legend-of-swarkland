@@ -38,5 +38,6 @@ template = open(index_html).read()
 rendered = template % context
 with open(out_html, 'w') as f:
     f.write(rendered)
-subprocess.check_call(["s3cmd", "put", "-P", exe_filename, "s3://superjoe/temp/"])
-subprocess.check_call(["s3cmd", "put", "-P", out_html, "s3://superjoe/temp/legend-of-swarkland.html"])
+
+subprocess.check_call(["rsync", "-vuz", exe_filename, "server:public_http/legend-of-swarkland/" + os.path.basename(exe_filename)])
+subprocess.check_call(["rsync", "-vuz", out_html, "server:public_http/legend-of-swarkland/index.html"])
