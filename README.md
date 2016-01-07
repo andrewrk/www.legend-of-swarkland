@@ -1,5 +1,3 @@
-# www.legend-of-swarkland
-
 Website for [legend-of-swarkland](https://github.com/thejoshwolfe/legend-of-swarkland).
 
 http://wolfesoftware.com/legend-of-swarkland/
