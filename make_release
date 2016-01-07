@@ -12,30 +12,31 @@ def sizeof_fmt(num, suffix='B'):
         num /= 1024.0
     return "%.1f%s%s" % (num, 'Y', suffix)
 
-subprocess.check_call(["make", "clean"])
 subprocess.check_call(["make", "publish-windows"])
 exe_filename = glob.glob("build/publish-windows/legend-of-swarkland-*.exe")[0]
-exe_name = os.path.split(exe_filename)[-1]
+exe_name = os.path.basename(exe_filename)
 exe_size = sizeof_fmt(os.path.getsize(exe_filename))
 exe_date = datetime.datetime.today().strftime("%Y-%m-%d %H:%M")
-subprocess.check_call(["s3cmd", "put", "-P", exe_filename, "s3://superjoe/temp/"])
 public_url = "http://superjoe.s3.amazonaws.com/temp/" + exe_name
 
-latest_sha1_bytes = subprocess.check_output(["git", "rev-parse", "--short", "--verify", "HEAD"])
-latest_sha1 = str(latest_sha1_bytes, 'utf-8').strip()
+latest_sha1 = str(subprocess.check_output(["git", "rev-parse", "--short", "--verify", "HEAD"]), "utf8").strip()
 source_tgz_url = "https://github.com/thejoshwolfe/legend-of-swarkland/archive/%s.tar.gz" % latest_sha1
 
-json_str = json.dumps({
+context = {
         "public_url": public_url,
         "exe_name": exe_name,
         "exe_size": exe_size,
         "exe_date": exe_date,
         "source_tgz_url": source_tgz_url,
         "latest_sha1": latest_sha1,
-})
+}
 this_directory = os.path.dirname(os.path.realpath(__file__))
-json_out_file = os.path.join(this_directory, "context.json")
-with open(json_out_file, 'w') as f:
-    f.write(json_str)
-render_and_upload_bin = os.path.join(this_directory, "render_and_upload")
-subprocess.check_call([render_and_upload_bin])
+
+index_html = os.path.join(this_directory, "index.html")
+out_html = os.path.join(this_directory, "out.html")
+template = open(index_html).read()
+rendered = template % context
+with open(out_html, 'w') as f:
+    f.write(rendered)
+subprocess.check_call(["s3cmd", "put", "-P", exe_filename, "s3://superjoe/temp/"])
+subprocess.check_call(["s3cmd", "put", "-P", out_html, "s3://superjoe/temp/legend-of-swarkland.html"])
