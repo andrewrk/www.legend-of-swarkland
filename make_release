@@ -13,11 +13,11 @@ def sizeof_fmt(num, suffix='B'):
     return "%.1f%s%s" % (num, 'Y', suffix)
 
 subprocess.check_call(["make", "publish-windows"])
-exe_filename = glob.glob("build/publish-windows/legend-of-swarkland-*.exe")[0]
+exe_filename = glob.glob("build/publish/legend-of-swarkland-*.exe")[0]
 exe_name = os.path.basename(exe_filename)
 exe_size = sizeof_fmt(os.path.getsize(exe_filename))
 exe_date = datetime.datetime.today().strftime("%Y-%m-%d %H:%M")
-public_url = "http://superjoe.s3.amazonaws.com/temp/" + exe_name
+public_url = "http://wolfesoftware.com/legend-of-swarkland/" + exe_name
 
 latest_sha1 = str(subprocess.check_output(["git", "rev-parse", "--short", "--verify", "HEAD"]), "utf8").strip()
 source_tgz_url = "https://github.com/thejoshwolfe/legend-of-swarkland/archive/%s.tar.gz" % latest_sha1
