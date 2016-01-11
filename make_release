@@ -12,7 +12,11 @@ def sizeof_fmt(num, suffix='B'):
         num /= 1024.0
     return "%.1f%s%s" % (num, 'Y', suffix)
 
-subprocess.check_call(["make", "publish-windows"])
+def subprocess_check_call(cmd):
+    print(" ".join(cmd))
+    subprocess.check_call(cmd)
+
+subprocess_check_call(["make", "publish-windows"])
 exe_filename = glob.glob("build/publish/legend-of-swarkland-*.exe")[0]
 exe_name = os.path.basename(exe_filename)
 exe_size = sizeof_fmt(os.path.getsize(exe_filename))
@@ -39,5 +43,6 @@ rendered = template % context
 with open(out_html, 'w') as f:
     f.write(rendered)
 
-subprocess.check_call(["rsync", "-vuz", exe_filename, "server:public_http/legend-of-swarkland/" + os.path.basename(exe_filename)])
-subprocess.check_call(["rsync", "-vuz", out_html, "server:public_http/legend-of-swarkland/index.html"])
+subprocess_check_call(["rsync", "-vuz", exe_filename, "server:public_http/legend-of-swarkland/" + os.path.basename(exe_filename)])
+subprocess_check_call(["rsync", "-vuz", out_html, "server:public_http/legend-of-swarkland/index.html"])
+subprocess_check_call(["rsync", "-vuz", os.path.join(this_directory, "screenshot.png"), "server:public_http/legend-of-swarkland/screenshot.png"])
