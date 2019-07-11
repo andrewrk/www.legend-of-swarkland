@@ -1,0 +1,45 @@
+
+* {
+    font-family: system-ui, -apple-system, Roboto, "Segoe UI", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+    margin: 20px 0;
+}
+p {
+    margin: 10px 0;
+}
+body {
+    background: url('img/brick1.png'),
+                url('img/brick2.png'),
+                url('img/brick3.png'),
+                url('img/brick4.png'),
+                url('img/brick5.png'),
+                url('img/brick6.png')
+}
+img {
+    max-width: 100%;
+}
+.container {
+    background: white;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 20px;
+    width: 80%;
+}
+.big-title {
+    font-size: 3em;
+    margin-top: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  body{
+      background-color:#111;
+      color: #bbb;
+  }
+  a {
+      color: #88f;
+  }
+}

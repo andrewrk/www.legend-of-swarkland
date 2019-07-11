@@ -1,0 +1,3 @@
+[submodule "deps/legend-of-swarkland"]
+	path = deps/legend-of-swarkland
+	url = https://github.com/thejoshwolfe/legend-of-swarkland.git
