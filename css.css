@@ -39,6 +39,9 @@ img {
       background-color:#111;
       color: #bbb;
   }
+  .container {
+      background: black;
+  }
   a {
       color: #88f;
   }
