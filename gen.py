@@ -22,7 +22,7 @@ def main():
         cwd=legend_of_swarkland_dir,
     ).decode("utf8").strip()
 
-    build_cmd = ["zig", "build", "-Dtarget=x86_64-windows-gnu"]
+    build_cmd = ["zig", "build", "-Dtarget=x86_64-windows-gnu", "-Drelease-safe"]
     print("building for windows...")
     subprocess.check_call(build_cmd, cwd=legend_of_swarkland_dir)
     print("done")
