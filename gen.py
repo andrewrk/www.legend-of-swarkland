@@ -3,6 +3,7 @@
 import os
 import subprocess
 import datetime
+import time
 import shutil
 
 def main():
@@ -36,7 +37,8 @@ def main():
 
     context = dict(
         css=open(os.path.join(this_directory, "css.css")).read(),
-        date=datetime.datetime.today().strftime("%Y-%m-%d %H:%M"),
+        date=datetime.datetime.now().isoformat(sep=" ", timespec="minutes"),
+        date_unix=int(time.time() / 60) * 60,
         sha1=sha1,
         version=version,
         exe_size=exe_size,
@@ -46,12 +48,13 @@ def main():
     with open(os.path.join(this_directory, "public/index.html"), 'w') as f:
         f.write(template.format(**context))
 
-def sizeof_fmt(num, suffix='B'):
-    for unit in ['','K','M','G','T','P','E','Z']:
+def sizeof_fmt(num, suffix="B"):
+    for prefix in ["","Ki","Mi","Gi","Ti","Pi","Ei","Zi"]:
         if abs(num) < 1024.0:
-            return "%3.1f%s%s" % (num, unit, suffix)
+            return "%3.1f%s%s" % (num, prefix, suffix)
         num /= 1024.0
-    return "%.1f%s%s" % (num, 'Y', suffix)
+    prefix = "Yi"
+    return "%.1f%s%s" % (num, prefix, suffix)
 
 if __name__ == "__main__":
     main()

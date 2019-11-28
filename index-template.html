@@ -16,7 +16,10 @@
         </p>
         <h2>Latest Release</h2>
         <p>
-          Released on {date}
+          Released on <span id="release_date">{date}</span>
+          <script>
+            document.getElementById("release_date").textContent = new Date({date_unix} * 1000).toString();
+          </script>
         </p>
         <p>
           Windows: <a href="legend-of-swarkland_{version}.exe">legend-of-swarkland_{version}.exe</a> (size {exe_size})
