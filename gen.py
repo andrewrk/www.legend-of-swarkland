@@ -7,6 +7,12 @@ import time
 import shutil
 
 def main():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--zig", metavar="path/to/zig", default="zig", help=
+        "default is: %(default)s")
+    args = parser.parse_args()
+
     this_directory = os.path.dirname(os.path.realpath(__file__))
     legend_of_swarkland_dir = os.path.join(this_directory, "deps/legend-of-swarkland")
     public_dir = os.path.join(this_directory, "public")
@@ -23,14 +29,14 @@ def main():
         cwd=legend_of_swarkland_dir,
     ).decode("utf8").strip()
 
-    build_cmd = ["zig", "build", "-Dtarget=x86_64-windows-gnu", "-Drelease-safe"]
+    build_cmd = [args.zig, "build", "-Dtarget=x86_64-windows-gnu", "-Drelease-safe"]
     print("building for windows...")
     subprocess.check_call(build_cmd, cwd=legend_of_swarkland_dir)
     print("done")
 
     exe_path = os.path.join(public_dir, "legend-of-swarkland_{version}.exe".format(version=version))
     shutil.copy(
-        os.path.join(legend_of_swarkland_dir, "zig-cache/bin/legend-of-swarkland.exe"),
+        os.path.join(legend_of_swarkland_dir, "zig-out/bin/legend-of-swarkland.exe"),
         exe_path,
     )
     exe_size = sizeof_fmt(os.stat(exe_path).st_size)
